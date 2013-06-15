@@ -1,12 +1,12 @@
 class TimeLine
   constructor: (@options) ->
-    #all objects offset to top 
+    #all objects offset to top
     @animateList = []
-  
+
   displayYearRange: ()->
     app = this
     $("#rightBar > #year").empty()
-    
+
     if not @yearList?
       $.ajaxSetup({async: false})
       $.get("/home/year_range",
@@ -15,7 +15,7 @@ class TimeLine
           app.yearList = data
       )
       $.ajaxSetup({async: true})
-        
+
     len = @yearList.length
     @currentYear ||= @yearList[0]
 
@@ -25,7 +25,7 @@ class TimeLine
       if year is @currentYear
         elem.attr("id", "current_year")
       elem.appendTo("#rightBar > #year")
-      
+
   animate: (year) ->
     comment_top = $("#caption").offset().top
     app = this
@@ -69,11 +69,11 @@ class TimeLine
             }
           )
           true
-  
+
   displayCaption :(message)->
-    $("div#caption").fadeOut()
-    $("div#caption").html(message)
-    $("div#caption").fadeIn('slow')
+    $("p#caption").fadeOut()
+    $("p#caption").html(message)
+    $("p#caption").fadeIn('slow')
 
   nextYear: () ->
     curIdx = @yearList.indexOf(@currentYear)
@@ -84,7 +84,7 @@ class TimeLine
     @currentYear = @yearList[curIdx]
     this.displayYearRange()
     this.fetchNewImage(@currentYear, this.shuffleImage)
-  
+
 
   fetchNewImage: (year, callback)->
     app = this
@@ -109,7 +109,7 @@ class TimeLine
       obj = this
       left = Math.floor((Math.random()*(maxWidth - obj.width))+1)
       this["margin_left"] = left
-      
+
       if delay?
         delay += 7000
       else
@@ -122,7 +122,7 @@ startClock = ()->
   h = today.getHours()
   m = today.getMinutes()
   s = today.getSeconds()
-  
+
   m = checkTime(m)
   s = checkTime(s)
 

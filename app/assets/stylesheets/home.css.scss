@@ -19,9 +19,40 @@ html, body {
   position: fixed;
   background: #ccc;
   height: 1024px;
-  width: 25%;
+  width: 300px;
   padding: 40px;
   right: 0px;
+}
+
+#caption-outer {
+  width: 280px;
+  height: 180px;
+  background: #C0C0C0;
+  padding: 10px;
+  margin: auto;
+  border-radius: 5px;
+  position: fixed;
+  bottom: 200px;
+
+  p {
+    font-size: 25px;
+  }
+}
+
+#media-part {
+  width: 300px;
+  position: fixed;
+  bottom: 0;
+  text-align: center;
+}
+
+#clock {
+  font-size: 30px;
+  margin-bottom: 30px;
+}
+
+audio {
+  margin-bottom: 30px;
 }
 
 #leftBar {
