@@ -70,7 +70,9 @@ class TimeLine
           true
 
   displayCaption :(message)->
+    $("p#caption").hide()
     $("p#caption").html(message)
+    $("p#caption").fadeIn('slow')
 
   nextYear: () ->
     curIdx = @yearList.indexOf(@currentYear)
