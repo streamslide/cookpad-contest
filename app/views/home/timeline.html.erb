@@ -6,10 +6,10 @@
   </div>
   <div id="media-part">
     <div id="clock"></div>
-    <audio controls>
-      <source src="./song.mp3" type="audio/mpeg">
+    <audio autoplay="autoplay" >
+      <source src=<%= "/song.mp3"%> type="audio/mpeg">
     </audio>
-  </div>
+  <div id="map-canvas"></div>
 </div>
 
 <%= javascript_include_tag :timeline %>

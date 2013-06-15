@@ -48,8 +48,8 @@ class TimeLine
           .delay(obj.delay)
           .animate(
             {
-              opacity: 0.0,
-              bottom: $(window).height() + "px"
+              opacity: 0.3,
+              bottom: $(window).height() + 40 + "px"
             },
             {
               step: ()->
@@ -132,6 +132,7 @@ startClock = ()->
 checkTime = (i)->
   i = "0" + i if i < 10
   i
+
 
 $(document).ready ->
   startClock()
