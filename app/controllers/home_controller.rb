@@ -1,6 +1,7 @@
 require 'fbphoto'
 class HomeController < ApplicationController
   include FBPhoto
+  before_filter :require_login, only: [:timeline]
 
   def login
   end
@@ -14,5 +15,10 @@ class HomeController < ApplicationController
     auth = request.env["omniauth.auth"]
     session[:access_token] = auth[:credentials][:token]
     redirect_to :timeline
+  end
+
+  private
+  def require_login
+    redirect_to :login if session[:access_token].nil?
   end
 end

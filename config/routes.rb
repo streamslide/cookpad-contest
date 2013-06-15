@@ -3,7 +3,7 @@ Cookpad::Application.routes.draw do
 
   get "home/timeline"
 
-  root to: "home#login"
+  root to: "home#login", as: :login
   match "home/timeline" => "home#timeline", as: :timeline
   match "/auth/:provider/callback", to: "home#callback"
 
