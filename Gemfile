@@ -6,7 +6,10 @@ gem 'rails', '3.2.11'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'sqlite3'
-
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'koala', '~> 1.7.0rc1'
+gem 'pry'
 
 # Gems used only for assets and not required
 # in production environments by default.

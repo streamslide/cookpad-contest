@@ -4,7 +4,9 @@ Cookpad::Application.routes.draw do
   get "home/timeline"
 
   root to: "home#login"
-  match "home/timeline" => "home#timeline"
+  match "home/timeline" => "home#timeline", as: :timeline
+  match "/auth/:provider/callback", to: "home#callback"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
