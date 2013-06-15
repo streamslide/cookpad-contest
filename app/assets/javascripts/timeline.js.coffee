@@ -106,7 +106,7 @@ class TimeLine
         app.year_photos_url + year,
         (data)->
           if data.length == 0
-            @fetchNewImage(year+1, callback)
+            app.fetchNewImage(year+1, callback)
           app.imgObjs = data
       )
       .done(
