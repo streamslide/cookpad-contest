@@ -1,6 +1,11 @@
 class TimeLine
-  constructor: (@options) ->
-    #all objects offset to top
+  constructor: (@share_key, @options) ->
+    if @share_key == ''
+      @year_range_url = '/home/year_range'
+      @year_photos_url = '/home/photos/'
+    else
+      @year_range_url = '/share/year_range/' + @share_key
+      @year_photos_url = '/share/photos/' + @share_key + '/'
     @animateList = []
 
   displayYearRange: ()->
@@ -9,9 +14,8 @@ class TimeLine
 
     if not @yearList?
       $.ajaxSetup({async: false})
-      $.get("/home/year_range",
+      $.get(app.year_range_url,
         (data) ->
-          console.log(data)
           app.yearList = data
       )
       $.ajaxSetup({async: true})
@@ -24,6 +28,13 @@ class TimeLine
       elem = $("<div class='year'>" + year + "</div>")
       if year is @currentYear
         elem.attr("id", "current_year")
+      else
+        elem.attr("class", "year pointer")
+        ((year) ->
+          elem.click ->
+            app.setYear year
+        )(year)
+
       elem.appendTo("#rightBar > #year")
 
   animate: (year) ->
@@ -79,8 +90,12 @@ class TimeLine
     curIdx += 1
     if (curIdx >= @yearList.length)
       curIdx = 0
+    year = @yearList[curIdx]
+    @setYear(year)
 
-    @currentYear = @yearList[curIdx]
+  setYear: (year) ->
+    @currentYear = year
+    $("#leftBar img").remove()
     this.displayYearRange()
     this.fetchNewImage(@currentYear, this.shuffleImage)
 
@@ -88,9 +103,8 @@ class TimeLine
   fetchNewImage: (year, callback)->
     app = this
     $.get(
-        "/home/photos/"+year,
+        app.year_photos_url + year,
         (data)->
-          console.log(data)
           if data.length == 0
             fetchNewImage(year+1, callback)
           app.imgObjs = data
@@ -134,9 +148,5 @@ checkTime = (i)->
   i = "0" + i if i < 10
   i
 
+window.TimeLine = TimeLine
 
-$(document).ready ->
-  #startClock()
-  app = new TimeLine()
-  app.displayYearRange()
-  app.fetchNewImage(app.currentYear, app.shuffleImage)

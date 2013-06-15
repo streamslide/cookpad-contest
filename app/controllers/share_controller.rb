@@ -25,4 +25,3 @@ class ShareController < ApplicationController
   end
 
 end
-

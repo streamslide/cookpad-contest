@@ -42,3 +42,11 @@
 
 </script>
 <%= javascript_include_tag :timeline %>
+
+<script>
+$(document).ready(function() {
+  app = new TimeLine('');
+  app.displayYearRange();
+  app.fetchNewImage(app.currentYear, app.shuffleImage);
+})
+</script>
