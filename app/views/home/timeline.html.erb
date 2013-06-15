@@ -1,6 +1,8 @@
 <div id="leftBar"></div>
 <div id="rightBar">
-  <p><a onclick='postToFeed(); return false;'>Post to Feed</a></p>
+  <div id="share_link">
+    <a onclick="postToFeed(); return false;">Share yout timeline to facebook</a>
+  </div>
   <p id='msg' style="display:none;"></p>
   <div id="share_key" style="display:none;"><%= @user.share_key %></div>
   <div id="year"></div>
