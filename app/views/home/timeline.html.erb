@@ -1,9 +1,11 @@
 <div id="leftBar"></div>
 <div id="rightBar">
-  <div id="year"></div>
   <div id="share_link">
-    <a href="/share/<%= @user.share_key %>">Share yout timeline to facebook</a>
+    <a onclick="postToFeed(); return false;">Share yout timeline to facebook</a>
   </div>
+  <p id='msg' style="display:none;"></p>
+  <div id="share_key" style="display:none;"><%= @user.share_key %></div>
+  <div id="year"></div>
   <div id="caption-outer">
     <div id="quotes-left" class="quotes">“</div>
     <p id="caption"></p>
@@ -16,7 +18,31 @@
     </audio>
   <div id="map-canvas"></div>
 </div>
+<script src='http://connect.facebook.net/en_US/all.js'></script>
+<script> 
+  FB.init({appId: "589820887715988", status: true, cookie: true});
 
+  function postToFeed() {
+    uiud = $("#share_key").html();
+    url = (window.location.origin+"/share/"+uiud)
+    var obj = {
+      method: 'feed',
+      redirect_uri: url,
+      link: url,
+      picture: 'http://memph.herokuapp.com/favicon.ico',
+      name: 'my timeline via memph',
+      caption: 'Reference Documentation',
+      description: 'my timeline via memph'
+    };
+
+    function callback(response) {
+      document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
+    }
+
+    FB.ui(obj, callback);
+  }
+
+</script>
 <%= javascript_include_tag :timeline %>
 
 <script>
