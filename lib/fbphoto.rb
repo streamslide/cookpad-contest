@@ -22,7 +22,6 @@ module FBPhoto
       end
       @photos << {src: r["src_big"], caption: caption, width: width, height: height}
     end
-    binding.pry
     @photos
   end
   def get_yearrange(access_token)
