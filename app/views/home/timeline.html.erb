@@ -1,11 +1,14 @@
 <div id="leftBar"></div>
 <div id="rightBar">
   <div id="year"></div>
-  <div id="caption"></div>
-  <div id="clock"></div>
-  <audio autoplay="autoplay" >
-    <source src=<%= "/song.mp3"%> type="audio/mpeg">
-  </audio>
+  <div id="caption-outer">
+    <p id="caption"></p>
+  </div>
+  <div id="media-part">
+    <div id="clock"></div>
+    <audio autoplay="autoplay" controls>
+      <source src=<%= "/song.mp3"%> type="audio/mpeg">
+    </audio>
   <div id="map-canvas"></div>
 </div>
 
