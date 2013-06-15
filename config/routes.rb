@@ -2,9 +2,9 @@ Cookpad::Application.routes.draw do
   get "home/login"
 
   get "home/timeline"
+  get "home/photos/:year" => "home#photos"
 
   root to: "home#login", as: :login
-  match "home/timeline" => "home#timeline", as: :timeline
   match "/auth/:provider/callback", to: "home#callback"
 
   # The priority is based upon order of creation:

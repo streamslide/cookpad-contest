@@ -7,7 +7,10 @@ class HomeController < ApplicationController
   end
 
   def timeline
-    photos = get_timeline(session[:access_token], 2013)
+  end
+
+  def photos
+    photos = get_timeline(session[:access_token], params["year"].to_i)
     render json: photos
   end
 
