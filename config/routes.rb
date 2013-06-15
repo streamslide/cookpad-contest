@@ -5,6 +5,10 @@ Cookpad::Application.routes.draw do
   get "home/photos/:year" => "home#photos"
   get "home/year_range"  => "home#year_range"
 
+  get "/share/photos/:share_key/:year" => "share#year_range"
+  get "/share/year_range/:share_key" => "share#photo"
+  get "/share/:share_key" => "share#index"
+
   root to: "home#login", as: :login
   match "/auth/:provider/callback", to: "home#callback"
 

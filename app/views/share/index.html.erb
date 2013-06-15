@@ -1,0 +1,23 @@
+<div id="leftBar"></div>
+<div id="rightBar">
+  <div id="year"></div>
+  <div id="caption-outer">
+    <p id="caption"></p>
+  </div>
+  <div id="media-part">
+    <div id="clock"></div>
+    <audio autoplay="autoplay" controls autoplay loop>
+      <source src=<%= "/song.mp3"%> type="audio/mpeg">
+    </audio>
+  <div id="map-canvas"></div>
+</div>
+
+<%= javascript_include_tag :timeline %>
+
+<script>
+$(document).ready(function() {
+  app = new TimeLine('<%= @share_key %>');
+  app.displayYearRange();
+  app.fetchNewImage(app.currentYear, app.shuffleImage);
+})
+</script>
