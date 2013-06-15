@@ -1,4 +1,4 @@
-class TimeLine
+class ShareTimeLine
   constructor: (@share_key, @options) ->
     #all objects offset to top
     @animateList = []
@@ -9,7 +9,7 @@ class TimeLine
 
     if not @yearList?
       $.ajaxSetup({async: false})
-      $.get("/share/" + @share_key + "/year_range",
+      $.get("/share/year_range/" + @share_key,
         (data) ->
           console.log(data)
           app.yearList = data
@@ -134,4 +134,4 @@ checkTime = (i)->
   i = "0" + i if i < 10
   i
 
-
+window.ShareTimeLine = ShareTimeLine
