@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessible :access_token, :fb_user_id, :share_key
+  has_many :images
 
   before_create :set_share_key
 
@@ -12,8 +13,9 @@ class User < ActiveRecord::Base
     if user
       User.find_by_fb_user_id(fb_user_id).update_attributes(:access_token => access_token)
     else
-      User.create(:fb_user_id => fb_user_id, :access_token => access_token)
+      user = User.create(:fb_user_id => fb_user_id, :access_token => access_token)
     end
+    user
   end
 
   private

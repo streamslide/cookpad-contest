@@ -11,7 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615181921) do
+ActiveRecord::Schema.define(:version => 20130615184820) do
+
+  create_table "images", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "src"
+    t.integer  "like_count"
+    t.integer  "comment_count"
+    t.integer  "created_timestamp"
+    t.string   "caption"
+    t.integer  "width"
+    t.integer  "height"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+  end
 
   create_table "users", :force => true do |t|
     t.string   "fb_user_id"
