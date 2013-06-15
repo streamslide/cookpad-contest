@@ -19,7 +19,22 @@ class HomeController < ApplicationController
   end
 
   def photos
-    photos = get_timeline(session[:access_token], params["year"].to_i)
+    current_year = DateTime.now.year
+    year = params["year"].to_i
+    user_id = session[:user_id]
+    is_use_db = false
+
+    if year < current_year
+      timestamp = Time.new(year, 01, 01).to_i
+      photos = Image.where(['created_timestamp > ?', timestamp]).where(:user_id => user_id).order(:created_timestamp)
+      is_use_db = true if not photos.empty?
+    end
+
+    if not is_use_db
+      photos = get_timeline(session[:access_token], year)
+      Image.store_images user_id, photos if year < current_year
+    end
+
     render json: photos
   end
 

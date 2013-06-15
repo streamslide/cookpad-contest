@@ -14,7 +14,7 @@ module FBPhoto
     return_photos = []
     comments = res["comments"]
     photos = res["photos"]
-  
+
     res["photos"].each do |r|
       width = 400 + 3*[r["like_info"]["like_count"]*10, 100].min
       caption = r["caption"]
@@ -25,9 +25,9 @@ module FBPhoto
         caption = t["text"] if t.present?
       end
 
-      return_photos << {src: r["src_big"], caption: caption, width: width, height: height, created: r["created"]}
+      return_photos << {src: r["src_big"], caption: caption, width: width, height: height, created: r["created"], like_count: r["like_info"]["like_count"], comment_count: r["comment_info"]["comment_count"]}
     end
-  
+
     return_photos.sort { |x,y| y[:caption].length <=> x[:caption].length }.first(30)
   end
 
