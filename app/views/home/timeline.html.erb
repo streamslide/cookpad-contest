@@ -30,14 +30,12 @@
       redirect_uri: url,
       link: url,
       picture: 'http://memph.herokuapp.com/favicon.ico',
-      name: 'my timeline via memph',
-      caption: 'Reference Documentation',
-      description: 'my timeline via memph'
+      name: 'my photos timeline via memph',
+      caption: 'share your memory to your friends',
+      description: 'my photos timeline via memph'
     };
 
-    function callback(response) {
-      document.getElementById('msg').innerHTML = "Post ID: " + response['post_id'];
-    }
+    function callback(response) {}
 
     FB.ui(obj, callback);
   }
