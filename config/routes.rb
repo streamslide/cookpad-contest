@@ -1,7 +1,7 @@
 Cookpad::Application.routes.draw do
   get "home/login"
 
-  get "home/timeline"
+  get "home/timeline", as: :timeline
   get "home/photos/:year" => "home#photos"
 
   root to: "home#login", as: :login
