@@ -36,7 +36,7 @@ class TimeLine
       tag = $('<img class="animated_photo">')
       tag.css({
         top: 'auto',
-        bottom: "-"+obj.bottom+"px",
+        bottom: "-"+(obj.height+30)+"px",
         position: 'absolute',
         'margin-left': obj.margin_left+"px",
         width: obj.width
@@ -45,18 +45,20 @@ class TimeLine
       tag.attr('src', obj.src).load ->
         list.push(tag)
         tag
-          .delay(100)
+          .delay(obj.delay)
           .animate(
             {
-              bottom: "1200px"
+              opacity: 0.0,
+              bottom: $(window).height() + "px"
             },
             {
               step: ()->
                 if (tag.offset().top <= comment_top && !(tag['displayed_comment']?))
                   tag['displayed_comment'] = true
-                  app.displayCaption(obj.caption)
+                  if (obj.caption.length > 0)
+                    app.displayCaption(obj.caption)
               queue: true,
-              duration: 15000 + obj.bottom*20,
+              duration: 15000,
               complete: ()->
                 idx = list.indexOf(tag)
                 list.splice(idx, 1)
@@ -66,6 +68,7 @@ class TimeLine
                   app.nextYear()
             }
           )
+          true
   
   displayCaption :(message)->
     $("div#caption").fadeOut()
@@ -100,19 +103,19 @@ class TimeLine
   shuffleImage: () ->
     maxWidth = $("#leftBar").width()
     len = @imgObjs.length
-    bottom = null
+    delay = null
 
     $.each @imgObjs, (obj) ->
       obj = this
       left = Math.floor((Math.random()*(maxWidth - obj.width))+1)
       this["margin_left"] = left
       
-      if bottom?
-        bottom += 400
+      if delay?
+        delay += 7000
       else
-        bottom = 0
+        delay = 0
 
-      this["bottom"] = bottom
+      this["delay"] = delay
 
 startClock = ()->
   today = new Date()
