@@ -101,19 +101,20 @@ class TimeLine
 
 
   fetchNewImage: (year, callback)->
-    app = this
-    $.get(
-        app.year_photos_url + year,
-        (data)->
-          if data.length == 0
-            app.fetchNewImage(year+1, callback)
-          app.imgObjs = data
-      )
-      .done(
-        ()->
-          callback.apply(app)
-          app.animate()
-      )
+    if @yearList.indexOf(year) >= 0
+      app = this
+      $.get(
+          app.year_photos_url + year,
+          (data)->
+            if data.length == 0
+              app.fetchNewImage(year+1, callback)
+            app.imgObjs = data
+        )
+        .done(
+          ()->
+            callback.apply(app)
+            app.animate()
+        )
 
   shuffleImage: () ->
     maxWidth = $("#leftBar").width()
