@@ -8,8 +8,7 @@ module FBPhoto
           pid IN (SELECT pid FROM photo_tag WHERE subject=me() AND created > #{from} AND created < #{to}) OR
           pid IN (SELECT pid FROM photo WHERE owner=me() AND modified > #{from} AND created < #{to})
         ORDER BY rand() LIMIT 30",
-      comments: "SELECT object_id, text FROM comment WHERE
-          object_id IN (SELECT object_id FROM #photos)"
+      comments: "SELECT object_id, text FROM comment WHERE object_id IN (SELECT object_id FROM #photos)"
       )
     @photos = []
     res["photos"].each do |r|
