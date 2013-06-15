@@ -12,11 +12,11 @@
   <div id="map-canvas"></div>
 </div>
 
-<%= javascript_include_tag :share %>
+<%= javascript_include_tag :timeline %>
 
 <script>
 $(document).ready(function() {
-  app = new ShareTimeLine('<%= @share_key %>');
+  app = new TimeLine('<%= @share_key %>');
   app.displayYearRange();
   app.fetchNewImage(app.currentYear, app.shuffleImage);
 })

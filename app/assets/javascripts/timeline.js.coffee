@@ -1,6 +1,11 @@
 class TimeLine
-  constructor: (@options) ->
-    #all objects offset to top
+  constructor: (@share_key, @options) ->
+    if @share_key == ''
+      @year_range_url = '/home/year_range'
+      @year_photos_url = '/home/photos/'
+    else
+      @year_range_url = '/share/year_range/' + @share_key
+      @year_photos_url = '/share/photos/' + @share_key + '/'
     @animateList = []
 
   displayYearRange: ()->
@@ -9,7 +14,7 @@ class TimeLine
 
     if not @yearList?
       $.ajaxSetup({async: false})
-      $.get("/home/year_range",
+      $.get(app.year_range_url,
         (data) ->
           console.log(data)
           app.yearList = data
@@ -88,7 +93,7 @@ class TimeLine
   fetchNewImage: (year, callback)->
     app = this
     $.get(
-        "/home/photos/"+year,
+        app.year_photos_url + year,
         (data)->
           console.log(data)
           if data.length == 0
@@ -134,9 +139,5 @@ checkTime = (i)->
   i = "0" + i if i < 10
   i
 
+window.TimeLine = TimeLine
 
-$(document).ready ->
-  #startClock()
-  app = new TimeLine()
-  app.displayYearRange()
-  app.fetchNewImage(app.currentYear, app.shuffleImage)
