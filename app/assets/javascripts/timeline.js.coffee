@@ -54,7 +54,7 @@ class TimeLine
               step: ()->
                 if (tag.offset().top <= comment_top && !(tag['displayed_comment']?))
                   tag['displayed_comment'] = true
-                  app.displayCaption("heheh")
+                  app.displayCaption(obj.caption)
               queue: true,
               duration: 15000 + obj.bottom*20,
               complete: ()->
