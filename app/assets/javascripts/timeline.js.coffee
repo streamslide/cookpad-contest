@@ -4,9 +4,18 @@ class TimeLine
     @animateList = []
   
   displayYearRange: ()->
-    $("#rightBar").empty()
-
-    @yearList = [2009, 2010, 2011, 2012]
+    app = this
+    $("#rightBar > #year").empty()
+    
+    if not @yearList?
+      $.ajaxSetup({async: false})
+      $.get("/home/year_range",
+        (data) ->
+          console.log(data)
+          app.yearList = data
+      )
+      $.ajaxSetup({async: true})
+        
     len = @yearList.length
     @currentYear ||= @yearList[0]
 
@@ -15,10 +24,12 @@ class TimeLine
       elem = $("<div class='year'>" + year + "</div>")
       if year is @currentYear
         elem.attr("id", "current_year")
-      elem.appendTo("#rightBar")
+      elem.appendTo("#rightBar > #year")
       
   animate: (year) ->
+    comment_top = $("#caption").offset().top
     app = this
+
     list = @animateList
     $.each @imgObjs, (obj) ->
       obj = this
@@ -36,10 +47,16 @@ class TimeLine
         tag
           .delay(100)
           .animate(
-            {bottom: "1000px"},
             {
+              bottom: "1200px"
+            },
+            {
+              step: ()->
+                if (tag.offset().top <= comment_top && !(tag['displayed_comment']?))
+                  tag['displayed_comment'] = true
+                  app.displayCaption("heheh")
               queue: true,
-              duration: 15000,
+              duration: 15000 + obj.bottom*20,
               complete: ()->
                 idx = list.indexOf(tag)
                 list.splice(idx, 1)
@@ -49,6 +66,11 @@ class TimeLine
                   app.nextYear()
             }
           )
+  
+  displayCaption :(message)->
+    $("div#caption").fadeOut()
+    $("div#caption").html(message)
+    $("div#caption").fadeIn('slow')
 
   nextYear: () ->
     curIdx = @yearList.indexOf(@currentYear)
@@ -82,13 +104,11 @@ class TimeLine
 
     $.each @imgObjs, (obj) ->
       obj = this
-      left = Math.floor((Math.random()*maxWidth)+1)
-      if left > maxWidth - obj.width
-        left = maxWidth - obj.width
+      left = Math.floor((Math.random()*(maxWidth - obj.width))+1)
       this["margin_left"] = left
-
+      
       if bottom?
-        bottom += 100
+        bottom += 400
       else
         bottom = 0
 
@@ -98,7 +118,3 @@ $(document).ready ->
   app = new TimeLine({a:1, b:2},{a:1,b:2})
   app.displayYearRange()
   app.fetchNewImage(app.currentYear, app.shuffleImage)
-
-  window.changeyear = () ->
-    app.currentYear = 2013
-    app.displayYearRange()
