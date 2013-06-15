@@ -11,7 +11,7 @@ class ShareController < ApplicationController
   end
 
   def year_range
-    timestamp = Image.where(:user_id => user.id).order(:created_at).limit(1)[0].created_timestamp
+    timestamp = Image.where(:user_id => user.id).order(:created_timestamp).limit(1)[0].created_timestamp
     min_year = Time.at(timestamp).year
     current_year = Time.new.year
     years = (min_year..current_year).to_a
