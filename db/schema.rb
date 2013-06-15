@@ -11,19 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130615190353) do
+ActiveRecord::Schema.define(:version => 20130615223417) do
 
   create_table "images", :force => true do |t|
     t.integer  "user_id"
-    t.string   "src"
+    t.text     "src",               :limit => 255
     t.integer  "like_count"
     t.integer  "comment_count"
     t.integer  "created_timestamp"
-    t.string   "caption"
+    t.text     "caption",           :limit => 255
     t.integer  "width"
     t.integer  "height"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
     t.integer  "users_id"
   end
 
