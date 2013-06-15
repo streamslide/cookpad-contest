@@ -4,13 +4,18 @@ gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem 'sqlite3', :group => [:development, :test]
+group :production do
+  gem 'thin'
+  gem 'pg'
+end
 
-gem 'sqlite3'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'koala', '~> 1.7.0rc1'
 gem 'jquery-ui-rails'
 gem 'pry'
+gem 'pg'
 
 # Gems used only for assets and not required
 # in production environments by default.
