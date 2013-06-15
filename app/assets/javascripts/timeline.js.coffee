@@ -92,6 +92,8 @@ class TimeLine
         "/home/photos/"+year,
         (data)->
           console.log(data)
+          if data.length == 0
+            fetchNewImage(year+1, callback)
           app.imgObjs = data
       )
       .done(
