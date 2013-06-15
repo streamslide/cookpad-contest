@@ -16,10 +16,11 @@ module FBPhoto
         t = res["comments"].keep_if { |elem| elem["object_id"]==r["object_id"] }.first
         caption = t["text"] if t.present?
       end
-      @photos << {src: r["src_big"], caption: caption, width: width, height: height}
+      photos << {src: r["src_big"], caption: caption, width: width, height: height, created: r["created"]}
     end
-    @photos
+    photos.sort { |x,y| x[:created] <=> y[:created] }
   end
+
   def get_yearrange(access_token)
     api = Koala::Facebook::API.new(access_token)
     res = api.fql_query("SELECT modified FROM photo WHERE owner=me() ORDER BY modified ASC LIMIT 1")

@@ -55,8 +55,7 @@ class TimeLine
               step: ()->
                 if (tag.offset().top <= comment_top && !(tag['displayed_comment']?))
                   tag['displayed_comment'] = true
-                  if (obj.caption.length > 0)
-                    app.displayCaption(obj.caption)
+                  app.displayCaption(obj.caption)
               queue: true,
               duration: 15000,
               complete: ()->
@@ -71,9 +70,7 @@ class TimeLine
           true
 
   displayCaption :(message)->
-    $("p#caption").fadeOut()
     $("p#caption").html(message)
-    $("p#caption").fadeIn('slow')
 
   nextYear: () ->
     curIdx = @yearList.indexOf(@currentYear)
