@@ -28,7 +28,7 @@ module FBPhoto
     end
 
     photos = return_photos.sort { |x,y| y[:caption].length <=> x[:caption].length }.first(30)
-    photos.sort { |x,y| y[:created] <=> x[:created] }
+    photos.sort { |x,y| x[:created] <=> y[:created] }
   end
 
   def get_yearrange(access_token)
