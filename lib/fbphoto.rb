@@ -10,18 +10,25 @@ module FBPhoto
         ORDER BY like_info.like_count DESC LIMIT 150",
       comments: "SELECT object_id, text FROM comment WHERE object_id IN (SELECT object_id FROM #photos)"
       )
-    photos = []
+
+    return_photos = []
+    comments = res["comments"]
+    photos = res["photos"]
+
     res["photos"].each do |r|
       width = 400 + 3*[r["like_info"]["like_count"]*10, 100].min
       caption = r["caption"]
       height = r["src_big_height"]*width/r["src_big_width"]
+
       if caption.empty?
         t = res["comments"].keep_if { |elem| elem["object_id"]==r["object_id"] }.first
         caption = t["text"] if t.present?
       end
-      photos << {src: r["src_big"], caption: caption, width: width, height: height, created: r["created"]}
+
+      return_photos << {src: r["src_big"], caption: caption, width: width, height: height, created: r["created"], like_count: r["like_info"]["like_count"], comment_count: r["comment_info"]["comment_count"]}
     end
-    photos.sort { |x,y| x[:created] <=> y[:created] }
+
+    return_photos.sort { |x,y| y[:caption].length <=> x[:caption].length }.first(30)
   end
 
   def get_yearrange(access_token)

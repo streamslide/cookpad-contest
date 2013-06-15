@@ -1,5 +1,8 @@
 <div id="leftBar"></div>
 <div id="rightBar">
+  <div id="share_link">
+    <a href="/share/<%= @user.share_key %>">/share/<%= @user.share_key %></a>
+  </div>
   <div id="year"></div>
   <div id="caption-outer">
     <div id="quotes-left" class="quotes">“</div>
@@ -7,6 +10,7 @@
     <div id="quotes-right" class="quotes">”</div>
   </div>
   <div id="media-part">
+    <div id="clock"></div>
     <audio autoplay="autoplay" controls autoplay loop>
       <source src=<%= "/song.mp3"%> type="audio/mpeg">
     </audio>

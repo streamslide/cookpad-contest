@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  src: MyString
+  like_count: 1
+  comment_count: 1
+  created_timestamp: 1
+  caption: MyString
+  width: 1
+  height: 1
+
+two:
+  user_id: 1
+  src: MyString
+  like_count: 1
+  comment_count: 1
+  created_timestamp: 1
+  caption: MyString
+  width: 1
+  height: 1
