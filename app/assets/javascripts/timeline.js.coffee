@@ -70,7 +70,9 @@ class TimeLine
           true
 
   displayCaption :(message)->
+    $("p#caption").hide()
     $("p#caption").html(message)
+    $("p#caption").fadeIn('slow')
 
   nextYear: () ->
     curIdx = @yearList.indexOf(@currentYear)
@@ -89,6 +91,8 @@ class TimeLine
         "/home/photos/"+year,
         (data)->
           console.log(data)
+          if data.length == 0
+            fetchNewImage(year+1, callback)
           app.imgObjs = data
       )
       .done(
@@ -132,7 +136,7 @@ checkTime = (i)->
 
 
 $(document).ready ->
-  startClock()
-  app = new TimeLine({a:1, b:2},{a:1,b:2})
+  #startClock()
+  app = new TimeLine()
   app.displayYearRange()
   app.fetchNewImage(app.currentYear, app.shuffleImage)

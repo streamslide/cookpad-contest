@@ -8,6 +8,7 @@ html, body {
   padding: 0;
   background: black;
   overflow: hidden;
+  font-family: 'Esteban', serif
 }
 
 .login-part {
@@ -26,13 +27,13 @@ html, body {
 
 #caption-outer {
   width: 280px;
-  height: 180px;
+  height: 280px;
   background: #C0C0C0;
   padding: 10px;
   margin: auto;
   border-radius: 5px;
   position: fixed;
-  bottom: 200px;
+  bottom: 100px;
 
   p {
     font-size: 25px;
@@ -69,6 +70,7 @@ audio {
 div#current_year.year {
   font-size: 30px;
   color: #2F4F4F;
+  border-left: 5px solid #4169E1;
 }
 
 #year {
@@ -80,6 +82,9 @@ div#current_year.year {
 
 .year {
   height: 40px;
+  border-left: 5px solid #B0C4DE;
+  padding-left: 15px;
+  margin-top: 3px
 }
 
 .eff {
@@ -115,6 +120,9 @@ div#current_year.year {
   position:absolute;
   top:0; left:0;
   z-index:0;
+  text-wrap: true;
+  word-wrap: break-word;
+  overflow-y: scroll
 }
 
 .eff .caption a.header {
@@ -129,6 +137,7 @@ div#current_year.year {
 
 .eff .caption p {
   margin:5px;
+  overflow-y: scroll
 }
 
 .content {
