@@ -1,13 +1,14 @@
 class TimeLine
-  constructor: (@imgObjs, @options) ->
+  constructor: (@options) ->
     #all objects offset to top 
+    @animateList = []
   
   displayYearRange: ()->
     $("#rightBar").empty()
 
-    @yearList = [2011, 2012, 2013, 2014]
+    @yearList = [2009, 2010, 2011, 2012]
     len = @yearList.length
-    @currentYear ||= @yearList[len-1]
+    @currentYear ||= @yearList[0]
 
     #add to right bar
     for year in @yearList
@@ -16,9 +17,9 @@ class TimeLine
         elem.attr("id", "current_year")
       elem.appendTo("#rightBar")
       
-  fetch: ()->
-
   animate: (year) ->
+    app = this
+    list = @animateList
     $.each @imgObjs, (obj) ->
       obj = this
       tag = $('<img class="animated_photo">')
@@ -27,34 +28,58 @@ class TimeLine
         bottom: "-"+obj.bottom+"px",
         position: 'absolute',
         'margin-left': obj.margin_left+"px",
-        width: obj.width,
-        height: obj.height
+        width: obj.width
       })
       tag.appendTo("#leftBar")
       tag.attr('src', obj.src).load ->
-        console.log('loaded')
+        list.push(tag)
         tag
           .delay(100)
           .animate(
-            {bottom: "400px"},
-            {queue: true, duration: 3000},
-            ()->
-              alert("done")
+            {bottom: "1000px"},
+            {
+              queue: true,
+              duration: 15000,
+              complete: ()->
+                idx = list.indexOf(tag)
+                list.splice(idx, 1)
+                tag.remove() #delete from DOM
+
+                if (list.length == 0)
+                  app.nextYear()
+            }
           )
 
   nextYear: () ->
-    
+    curIdx = @yearList.indexOf(@currentYear)
+    curIdx += 1
+    if (curIdx >= @yearList.length)
+      curIdx = 0
+
+    @currentYear = @yearList[curIdx]
+    this.displayYearRange()
+    this.fetchNewImage(@currentYear, this.shuffleImage)
+  
+
+  fetchNewImage: (year, callback)->
+    app = this
+    $.get(
+        "/home/photos/"+year,
+        (data)->
+          console.log(data)
+          app.imgObjs = data
+      )
+      .done(
+        ()->
+          callback.apply(app)
+          app.animate()
+      )
+
   shuffleImage: () ->
-    @imgObjs = [
-      {src: "https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-prn1/p206x206/563683_10151426769389139_1989896978_n.jpg", year: 2015, width: 100, height: 100},
-      {src: "https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-prn1/521782_10151426767634139_1414193279_n.jpg", year: 2014, width: 100, height: 100},
-      {src: "https://fbcdn-sphotos-c-a.akamaihd.net/hphotos-ak-frc1/382304_10200603400510071_702291003_n.jpg", year: 2014, width: 100, height: 100}]
-    
     maxWidth = $("#leftBar").width()
     len = @imgObjs.length
     bottom = null
 
-    console.log(maxWidth)
     $.each @imgObjs, (obj) ->
       obj = this
       left = Math.floor((Math.random()*maxWidth)+1)
@@ -69,13 +94,10 @@ class TimeLine
 
       this["bottom"] = bottom
 
-    return true
-
 $(document).ready ->
   app = new TimeLine({a:1, b:2},{a:1,b:2})
   app.displayYearRange()
-  app.shuffleImage()
-  app.animate()
+  app.fetchNewImage(app.currentYear, app.shuffleImage)
 
   window.changeyear = () ->
     app.currentYear = 2013
