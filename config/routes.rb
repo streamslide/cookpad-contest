@@ -1,4 +1,10 @@
 Cookpad::Application.routes.draw do
+  get "home/login"
+
+  get "home/timeline"
+
+  root to: "home#login"
+  match "home/timeline" => "home#timeline"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
