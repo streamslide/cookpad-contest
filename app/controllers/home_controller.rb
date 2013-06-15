@@ -8,6 +8,8 @@ class HomeController < ApplicationController
   end
 
   def timeline
+    access_token = session[:access_token]
+    User.create_from_access_token access_token
   end
 
   def year_range

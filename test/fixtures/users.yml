@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 
+  fb_user_id: MyString
+  access_token: MyString
+  share_key: MyString
+
+two:
+  user_id: 
+  fb_user_id: MyString
+  access_token: MyString
+  share_key: MyString
