@@ -8,6 +8,7 @@ html, body {
   padding: 0;
   background: black;
   overflow: hidden;
+  font-family: 'Esteban', serif
 }
 
 .login-part {
@@ -111,6 +112,9 @@ div#current_year.year {
   position:absolute;
   top:0; left:0;
   z-index:0;
+  text-wrap: true;
+  word-wrap: break-word;
+  overflow-y: scroll
 }
 
 .eff .caption a.header {
@@ -125,6 +129,7 @@ div#current_year.year {
 
 .eff .caption p {
   margin:5px;
+  overflow-y: scroll
 }
 
 .content {
