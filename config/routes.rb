@@ -3,6 +3,7 @@ Cookpad::Application.routes.draw do
 
   get "home/timeline"
   get "home/photos/:year" => "home#photos"
+  get "home/year_range"  => "home#year_range"
 
   root to: "home#login", as: :login
   match "/auth/:provider/callback", to: "home#callback"

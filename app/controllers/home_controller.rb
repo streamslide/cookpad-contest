@@ -8,12 +8,17 @@ class HomeController < ApplicationController
 
   def timeline
   end
+  
+  def year_range
+    years = get_yearrange(session[:access_token])
+    render json: years
+  end
 
   def photos
     photos = get_timeline(session[:access_token], params["year"].to_i)
     render json: photos
   end
-
+  
   def callback
     auth = request.env["omniauth.auth"]
     session[:access_token] = auth[:credentials][:token]
