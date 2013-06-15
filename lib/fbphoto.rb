@@ -4,10 +4,10 @@ module FBPhoto
     to = Time.new(year+1, 01, 01).to_i
     api = Koala::Facebook::API.new(access_token)
     res = api.fql_multiquery(
-      photos: "SELECT object_id, pid, src_big, caption, like_info, src_big_height, src_big_width FROM photo WHERE
-          pid IN (SELECT pid FROM photo_tag WHERE subject=me() AND created > #{from} AND created < #{to}) OR
-          pid IN (SELECT pid FROM photo WHERE owner=me() AND modified > #{from} AND created < #{to})
-        ORDER BY rand() LIMIT 30",
+      photos: "SELECT object_id, pid, src_big, caption, like_info.like_count, comment_info.comment_count, src_big_height, src_big_width FROM photo WHERE
+          pid IN (SELECT pid FROM photo_tag WHERE subject=me() AND created > #{from} AND created < #{to} LIMIT 1000) OR
+          pid IN (SELECT pid FROM photo WHERE owner=me() AND modified > #{from} AND created < #{to} LIMIT 1000)
+        ORDER BY like_info.like_count  LIMIT 30",
       comments: "SELECT object_id, text FROM comment WHERE object_id IN (SELECT object_id FROM #photos)"
       )
     @photos = []
