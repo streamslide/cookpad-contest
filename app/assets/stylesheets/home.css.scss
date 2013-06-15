@@ -12,10 +12,10 @@ html, body {
 }
 
 #share_link {
-  width: 150px;
+  width: 180px;
   background: #696969;
   border-radius: 6px;
-  text-align: center;
+  text-align: left;
   text-color: white;
   padding: 15px 10px 15px 10px;
   position: fixed;
@@ -25,11 +25,8 @@ html, body {
   a {
     text-decoration: none;
     color: #77EEFF;
+    cursor: pointer;
   }
-}
-
-#share_link:hover {
-  right: -10px;
 }
 
 #share_link:active {
@@ -129,6 +126,7 @@ div#current_year.year {
 
 .year {
   height: 40px;
+  width: 100px;
   border-left: 5px solid #B0C4DE;
   padding-left: 15px;
   margin-top: 3px;
