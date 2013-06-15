@@ -114,7 +114,24 @@ class TimeLine
 
       this["bottom"] = bottom
 
+startClock = ()->
+  today = new Date()
+  h = today.getHours()
+  m = today.getMinutes()
+  s = today.getSeconds()
+  
+  m = checkTime(m)
+  s = checkTime(s)
+
+  $("div#clock").html(h+":"+m+":"+s)
+  t = setTimeout(startClock ,500)
+
+checkTime = (i)->
+  i = "0" + i if i < 10
+  i
+
 $(document).ready ->
+  startClock()
   app = new TimeLine({a:1, b:2},{a:1,b:2})
   app.displayYearRange()
   app.fetchNewImage(app.currentYear, app.shuffleImage)
