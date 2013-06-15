@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   before_filter :require_login, only: [:timeline]
 
   def login
-   # redirect_to :timeline if session[:access_token].present?
+    redirect_to :timeline if session[:access_token].present?
   end
 
   def timeline
