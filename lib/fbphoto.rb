@@ -9,9 +9,16 @@ module FBPhoto
       ORDER BY modified LIMIT 100")
     @photos = []
     res.each do |r|
-      width = 200 + 2*[r["like_info"]["like_count"]*5, 100].min
+      width = 400 + 3*[r["like_info"]["like_count"]*5, 100].min
       @photos << {src: r["src_big"], caption: r["caption"], width: width}
     end
     @photos
+  end
+  def get_yearrange(access_token)
+    api = Koala::Facebook::API.new(access_token)
+    res = api.fql_query("SELECT modified FROM photo WHERE owner=me() ORDER BY modified ASC LIMIT 1")
+    to = Time.now.year
+    from = Time.at(res[0]["modified"]).year
+    (from..to).to_a
   end
 end
