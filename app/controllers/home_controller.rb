@@ -9,8 +9,14 @@ class HomeController < ApplicationController
 
   def timeline
     access_token = session[:access_token]
-    @user = User.create_from_access_token access_token
-    session[:user_id] = @user.id
+    begin
+      @user = User.create_from_access_token access_token
+      session[:user_id] = @user.id
+    rescue
+      cookies =  nil
+      reset_session
+      redirect_to :login
+    end
   end
 
   def year_range
