@@ -11,6 +11,27 @@ html, body {
   font-family: 'Esteban', serif
 }
 
+#share_link {
+  width: 150px;
+  background: #696969;
+  border-radius: 6px;
+  text-align: center;
+  text-color: white;
+  padding: 15px 10px 15px 10px;
+  position: fixed;
+  top: 100px;
+  right: -10px;
+
+  a {
+    text-decoration: none;
+    color: #77EEFF;
+  }
+}
+
+#share_link:hover {
+  background: #A9A9A9;
+}
+
 .login-part {
   width: 650px;
   margin:  auto;
