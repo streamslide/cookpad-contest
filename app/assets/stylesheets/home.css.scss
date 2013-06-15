@@ -7,10 +7,32 @@ html, body {
   margin: 0;
   padding: 0;
   background: black;
+  overflow: hidden;
 }
 
 #login-part {
   width: 500px;
   margin: auto;
   text-align: center;
+}
+
+#rightBar {
+  position: fixed;
+  background: #ccc;
+  height: 1024px;
+  width: 30%;
+  right: 0px;
+}
+
+#leftBar {
+  float: left;
+  left: 0;
+  width: 70%;
+  height: 100px;
+}
+
+div#current_year.year {
+  font-size: 30px;
+  color: #f00;
+  background-color: #000;
 }
