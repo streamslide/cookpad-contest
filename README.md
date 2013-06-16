@@ -1,4 +1,7 @@
-cookpad-contest
+MEMPH (MEMories PHoto frame)
 ===============
 
-cookpad contest 24h
+cookpad 24h hackathon product.
+
+Please checkout at url:
+memph.herokuapp.com
