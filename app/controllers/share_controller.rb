@@ -1,6 +1,8 @@
 class ShareController < ApplicationController
   def index
     @share_key = params["share_key"]
+    @is_logged_in = session[:user_id].present?
+    p @is_logged_in
   end
 
   def photos

@@ -1,5 +1,10 @@
 <div id="leftBar"></div>
 <div id="rightBar">
+
+  <% if not @is_logged_in %>
+    <a href="/home/timeline">See your own timeline</a>
+  <% end %>
+
   <div id="year"></div>
   <div id="caption-outer">
     <p id="caption"></p>
